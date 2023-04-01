@@ -1,27 +1,57 @@
+local icons = {
+  diagnostics = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " ",
+  },
+  git = {
+    added = " ",
+    modified = " ",
+    removed = " ",
+  },
+}
+
 return {
   {
     "rebelot/heirline.nvim",
     enabled = false,
   },
-  -- statusline
+
+  -- bufferline
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
+    },
+    opts = {
+      options = {
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = false,
+        diagnostics_indicator = function(_, _, diag)
+          local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
+            .. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
+          return vim.trim(ret)
+        end,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "Neo-tree",
+            highlight = "Directory",
+            text_align = "left",
+          },
+        },
+      },
+    },
+  },
+
+  --statusline
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function(plugin)
-      local icons = {
-        diagnostics = {
-          Error = " ",
-          Warn = " ",
-          Hint = " ",
-          Info = " ",
-        },
-        git = {
-          added = " ",
-          modified = " ",
-          removed = " ",
-        },
-      }
-
       local function fg(name)
         return function()
           ---@type {foreground?:number}?
@@ -89,7 +119,7 @@ return {
             },
           },
           lualine_y = {
-            { "progress", separator = " ",                  padding = { left = 1, right = 0 } },
+            { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
           lualine_z = {

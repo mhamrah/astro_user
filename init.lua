@@ -1,4 +1,18 @@
 return {
+  options = {
+    opt = {
+      showtabline = 0, -- don't show tabline
+    },
+  },
+  plugins = {
+    {
+      "rebelot/heirline.nvim",
+      opts = function(_, opts)
+        opts.tabline = nil -- remove tabline
+        return opts
+      end,
+    },
+  },
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
@@ -16,16 +30,13 @@ return {
       --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
     },
   },
-
   -- Set colorscheme to use
   colorscheme = "rose-pine-moon",
-
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = true,
     underline = true,
   },
-
   lsp = {
     -- customize lsp formatting options
     formatting = {
@@ -33,10 +44,10 @@ return {
       format_on_save = {
         enabled = true, -- enable or disable format on save globally
         -- allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
+        -- "go",
         -- },
         -- ignore_filetypes = { -- disable format on save for specified filetypes
-          -- "python",
+        -- "python",
         -- },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
@@ -52,7 +63,6 @@ return {
       -- "pyright"
     },
   },
-
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
@@ -63,7 +73,6 @@ return {
       },
     },
   },
-
   -- This function is run last and is a good place to configuring
   -- augroups/autocommands and custom filetypes also this just pure lua so
   -- anything that doesn't fit in the normal config locations above can go here
