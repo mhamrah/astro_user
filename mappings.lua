@@ -11,6 +11,7 @@ return {
     ["<leader>bd"] = false,
     ["<leader>b\\"] = false,
     ["<leader>b|"] = false,
+    ["<C-a>"] = { "gg<S-v>G", desc = "Select all" },
     -- second key is the lefthand side of the map
     -- mappings seen under group name "Buffer"
     -- ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
